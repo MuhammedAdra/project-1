@@ -230,12 +230,34 @@ if (!function_exists('db_first')) {
         }
     }
 }
+/**
+   /*
+ * Fetch data from a table in the database
+ * @param string $table The name of the table
+ * @param string|null $query_str Optional condition for the SQL query
+ * @return mixed An array with the query result and row count
+ */
 
+if (!function_exists('db_get')) {
 
-$search = db_first('user', "WHERE email = 'adra4@gmail.com'");
+    function db_get(string $table, string $query_str = null): mixed
+    {
+        global $connect; // Use global connection
+        $sql = "SELECT * FROM `$table` $query_str";
+        $query = mysqli_query($connect, $sql);
 
-if ($search['status'] === 'success') {
-    var_dump($search['data']);
-} else {
-    echo "Error: " . $search['message'];
+        if (!$query) {
+            return [
+                'status' => 'error',
+                'message' => 'Query failed: ' . mysqli_error($connect),
+            ];
+        }
+        $GLOBALS['query'] = $query;
+        $num = mysqli_num_rows($query);
+        return [
+            'status' => 'success',
+            'query' => $query,
+            'num' => $num,
+        ];
+    }
 }

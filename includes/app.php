@@ -14,6 +14,7 @@ $GLOBALS['connect'] = mysqli_connect(
     $database_info['port']
 );
 
+
 if (!$GLOBALS['connect']) {
     die("Connection failed: " . mysqli_connect_error());
 }

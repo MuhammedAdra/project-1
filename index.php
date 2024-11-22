@@ -60,3 +60,17 @@ if ($search['status'] === 'success') {
     echo "Error: " . $search['message'];
 }
 */
+/*// Example usage
+$user = db_get('user', ""); // Fetch all users
+if ($user['status'] === 'success' && $user['num'] > 0) {
+    while ($row = mysqli_fetch_assoc($user['query'])) {
+        echo $row['name'] . "<br>";
+    }
+} else {
+    echo "No users found or query failed.";
+}
+
+if (!empty($GLOBALS['query'])) {
+    mysqli_free_result($GLOBALS['query']);
+}
+*/
