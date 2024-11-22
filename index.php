@@ -39,3 +39,14 @@ if ($result['status'] === 'success') {
 } else {
     echo "Error: " . $result['message'];
 } */
+
+/*
+
+$result = db_fetch('user', 9);
+
+if ($result['status'] === 'success') {
+    var_dump($result['data']);
+} else {
+    echo "Error: " . $result['message'];
+}
+*/

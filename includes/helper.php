@@ -146,3 +146,46 @@ if (!function_exists('db_delete')) {
         }
     }
 }
+
+/*
+fetch single row data from database
+ * @param string $table
+ * @param int $id
+*/
+if (!function_exists('db_fetch')) {
+    function db_fetch(string $table, int $id): array
+    {
+        global $connect; // تأكد من وجود الاتصال
+
+        // بناء استعلام SQL مع تأمين البيانات
+        $id = mysqli_real_escape_string($connect, $id);
+        $sql = "SELECT * FROM `$table` WHERE `id` = $id";
+
+        // تنفيذ الاستعلام
+        $query = mysqli_query($connect, $sql);
+
+        // التحقق من نجاح الاستعلام
+        if (!$query) {
+            return [
+                'status' => 'error',
+                'message' => 'Fetch failed: ' . mysqli_error($connect),
+            ];
+        }
+
+        // الحصول على النتائج
+        $result = mysqli_fetch_assoc($query);
+
+        // التحقق من وجود بيانات
+        if ($result) {
+            return [
+                'status' => 'success',
+                'data' => $result,
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'message' => "No record found with ID $id.",
+            ];
+        }
+    }
+}
