@@ -110,3 +110,39 @@ if (!function_exists('db_update')) {
         }
     }
 }
+
+
+/*
+delete data from database
+ * @param string $table
+ * @param int $id
+*/
+if (!function_exists('db_delete')) {
+    function db_delete(string $table, int $id): array
+    {
+        global $connect; // تأكد من وجود الاتصال بقاعدة البيانات
+
+        // Construct the DELETE query
+        $sql = "DELETE FROM `$table` WHERE `id` = $id";
+
+        // Execute the query
+        if (mysqli_query($connect, $sql)) {
+            if (mysqli_affected_rows($connect) > 0) {
+                return [
+                    'status' => 'success',
+                    'message' => "Record with ID $id deleted successfully."
+                ];
+            } else {
+                return [
+                    'status' => 'error',
+                    'message' => "No record found with ID $id to delete."
+                ];
+            }
+        } else {
+            return [
+                'status' => 'error',
+                'message' => 'Deletion failed: ' . mysqli_error($connect)
+            ];
+        }
+    }
+}

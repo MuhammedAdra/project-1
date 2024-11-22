@@ -30,3 +30,12 @@ if ($update['status'] === 'success') {
     echo "Error: " . $update['message'];
 }
 */
+
+/*
+$result = db_delete('user', 19);
+
+if ($result['status'] === 'success') {
+    echo $result['message'];
+} else {
+    echo "Error: " . $result['message'];
+} */
