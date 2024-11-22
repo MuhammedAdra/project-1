@@ -189,3 +189,53 @@ if (!function_exists('db_fetch')) {
         }
     }
 }
+/*
+search for a single row data from database
+ * @param string $table
+ * @param int $id
+*/
+if (!function_exists('db_first')) {
+    function db_first(string $table, string $query_str): array
+    {
+        global $connect; // تأكد من وجود الاتصال
+
+        // تأكد من إضافة المسافة الصحيحة بين الجدول والجملة الشرطية
+        $sql = "SELECT * FROM `$table` $query_str";
+
+        // تنفيذ الاستعلام
+        $query = mysqli_query($connect, $sql);
+
+        // التحقق من نجاح الاستعلام
+        if (!$query) {
+            return [
+                'status' => 'error',
+                'message' => 'Fetch failed: ' . mysqli_error($connect),
+            ];
+        }
+
+        // الحصول على النتائج
+        $result = mysqli_fetch_assoc($query);
+
+        // التحقق من وجود البيانات
+        if ($result) {
+            return [
+                'status' => 'success',
+                'data' => $result,
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'message' => "No record found with the provided condition.",
+            ];
+        }
+    }
+}
+
+
+$search = db_first('user', "WHERE email = 'adra4@gmail.com'");
+
+if ($search['status'] === 'success') {
+    var_dump($search['data']);
+} else {
+    echo "Error: " . $search['message'];
+}

@@ -50,3 +50,13 @@ if ($result['status'] === 'success') {
     echo "Error: " . $result['message'];
 }
 */
+
+/*
+$search = db_first('user', "WHERE email = 'adra4@gmail.com'");
+
+if ($search['status'] === 'success') {
+    var_dump($search['data']);
+} else {
+    echo "Error: " . $search['message'];
+}
+*/
