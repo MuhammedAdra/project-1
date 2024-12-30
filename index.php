@@ -13,7 +13,7 @@ if ($result['status'] === 'success') {
     echo "Inserted record with ID: " . $result['id'];
 } else {
     echo "Error: " . $result['message'];
-}*/
+}
 
 
 /*

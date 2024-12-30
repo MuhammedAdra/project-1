@@ -24,6 +24,3 @@ if (!$GLOBALS['connect']) {
 include __DIR__ . "/helper.php";
 
 // Close the connection only if it's open
-if (isset($GLOBALS['connect']) && $GLOBALS['connect'] !== false) {
-    mysqli_close($GLOBALS['connect']);
-}
